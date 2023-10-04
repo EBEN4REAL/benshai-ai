@@ -19,7 +19,9 @@ export default defineComponent({
         },
     },
     setup(props, { emit }) {
-        const selectedOption = ref(props.value);
+        const {value, options} = props
+        const selectedOption = ref(value);
+        selectedOption.value = options[0].value
 
         function handleChange(event: Event) {
             const selectedValue = (event.target as HTMLSelectElement).value;
