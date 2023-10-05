@@ -1,12 +1,13 @@
 import { defineStore } from "pinia";
 import { cities } from "./../constants";
 import { ref, computed } from "vue";
-import { ICity } from "./../types";
+import { ICity, IWeatherResponse } from "./../types";
 
 export const useCityStore = defineStore("city", () => {
   const citiesList = ref<ICity[]>(cities);
   const search = ref<string>("");
   const selectedContinent = ref<string>("");
+  const temperature = ref<string>("Standard")
 
   const calculateDistanceInKm = (
     lat1: number,
@@ -85,7 +86,6 @@ export const useCityStore = defineStore("city", () => {
   continents.unshift({ label: "All cities", value: "All cities" });
 
   const updateSearch = (value: string) => {
-    console.log("search value", value);
     search.value = value;
   };
 
@@ -93,10 +93,15 @@ export const useCityStore = defineStore("city", () => {
     selectedContinent.value = value;
   };
 
-  const sortCity = (sortLabel) => {
-    console.log("sortLabel", sortLabel)
-    citiesList.value.sort((firstCity, secondCity) => firstCity[sortLabel] > secondCity[sortLabel] ? 1 : -1)
+  const updateCities = (cities: ICity[]) => {
+    citiesList.value = cities
   }
+
+  const sortCity = (sortLabel) => {
+    citiesList.value.sort((firstCity, secondCity) =>
+      firstCity[sortLabel] > secondCity[sortLabel] ? 1 : -1
+    );
+  };
 
   const filteredCities = computed(() => {
     const continentFilterParam =
@@ -111,23 +116,30 @@ export const useCityStore = defineStore("city", () => {
           city.active &&
           city.continent.includes(continentFilterParam)
       );
-    } else {
-      return citiesList.value.filter(
-        (city) =>
-          (city.name.toLowerCase().includes(searchValue) ||
-            city.country.toLowerCase().includes(searchValue)) &&
-          city.active
-      );
     }
+
+    return citiesList.value.filter(
+      (city) =>
+        (city.name.toLowerCase().includes(searchValue) ||
+          city.country.toLowerCase().includes(searchValue)) &&
+        city.active
+    );
   });
+  
+  const changeTemperature = (label: string) => {
+    temperature.value = label
+  }
 
   return {
     filteredCities,
     continents,
     search,
     selectedContinent,
+    temperature,
     updateSearch,
     updateSelectedContinent,
-    sortCity
+    sortCity,
+    updateCities,
+    changeTemperature
   };
 });

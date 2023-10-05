@@ -1,24 +1,34 @@
 <template>
-    <div class="cities-container bg-orange-200">
-        <div v-for="(city, i) in filteredCities" :key="`${city.name}-${i}`" class="city"
-            :style="{ backgroundImage: `url(${city.image})` }">
-            <p style="color: white">
-                {{ city.distance }}
-            </p>
-            <p>{{ city.name }} {{ city.continent }}</p>
-            <p>{{ city.country }}</p>
-            <p>{{ city.description }}</p>
+    <div>
+        <div class="cities-container" v-if="filteredCities.length > 0">
+            <div v-for="(city, i) in filteredCities" :key="`${city.name}-${i}`" class="city"
+                :style="{ backgroundImage: `url(${city.image})` }">
+                <router-link :to="`/${city.name}`">
+                    <p style="color: white">
+                        {{ city.distance }}
+                    </p>
+                    <p>{{ city.name }} {{ city.continent }}</p>
+                    <p>{{ city.country }}</p>
+                    <p>{{ truncateString(city.description, 100) }}</p>
+                </router-link>
 
-            <div class="overlay"></div>
+                <div class="overlay"></div>
+            </div>
         </div>
+        <div v-else>
+            No cities found
+        </div>
+
     </div>
 </template>
   
 <script lang="ts">
-import { defineComponent, ref, computed } from 'vue';
-import { ICity } from "../../types"
+import { defineComponent, ref, computed, onMounted, watch } from 'vue';
+import { ICity, IWeatherResponse } from "../../types"
 import { useCityStore } from "../../store/CityStore.ts"
 import { storeToRefs } from 'pinia'
+import { truncateString } from "../../utils/truncateString"
+import { fetchData } from "../../Services/cityService.ts"
 
 export default defineComponent({
     props: {
@@ -28,12 +38,44 @@ export default defineComponent({
     },
     setup() {
         const cityStore = useCityStore()
-        const { filteredCities, selectedContinent, search: searchValue } = storeToRefs(cityStore);
+        const { updateCities } = cityStore
+        const { filteredCities, temperature } = storeToRefs(cityStore);
 
-        console.log("STORE => filteredCities", filteredCities)
+        async function fetchCityWeatherInfo(coords: { latitude: number, longitude: number }) {
+            const cities = [...filteredCities.value]
+
+            try {
+                const data = await fetchData(coords, temperature.value);
+
+                cities.forEach(city => {
+                    if (city.coords.lat === coords.lat && coords.lng === city.coords.lng) {
+                        city.temp = data.main.temp
+                    }
+                })
+
+                updateCities(cities)
+            } catch (error) {
+                console.error(error.message);
+            }
+        }
+
+        watch(temperature, (value) => {
+            updateCitiesTemperature()
+        })
+
+        const updateCitiesTemperature = () => {
+            for (const city of filteredCities.value) {
+                fetchCityWeatherInfo(city.coords);
+            }
+        }
+
+        onMounted(() => {
+            updateCitiesTemperature()
+        });
 
         return {
             filteredCities,
+            truncateString
         };
     },
 });
@@ -62,5 +104,6 @@ export default defineComponent({
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
 }
 </style>

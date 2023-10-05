@@ -4,12 +4,14 @@
       <SelectInput :options="continents" v-model="selectedContinent" />
     </div>
     <div>
-      <Input v-model="search" placeholder="search city..." /> {{ myCoordinates }}
+      <Input v-model="search" placeholder="search city..." />
     </div>
     <div>
       <p @click="sortCity('name')">Name</p>
       <p @click="sortCity('distance')">Distance</p>
     </div>
+    <p @click="changeTemperature('metric')">C</p>
+    <p @click="changeTemperature('imperial')">F</p>
   </div>
 </template>
 
@@ -25,8 +27,7 @@ export default defineComponent({
     Input
   },
   setup() {
-    const { continents, updateSelectedContinent, updateSearch, sortCity } = useCityStore()
-    const myCoordinates = ref<{ latitude: number, longitude: number }>()
+    const { continents, updateSelectedContinent, updateSearch, sortCity, changeTemperature } = useCityStore()
     const search = ref('');
     const selectedContinent = ref("");
     const isDisabled = ref(false);
@@ -44,8 +45,8 @@ export default defineComponent({
       selectedContinent,
       isDisabled,
       continents,
-      myCoordinates,
-      sortCity
+      sortCity,
+      changeTemperature
     };
   },
 });
