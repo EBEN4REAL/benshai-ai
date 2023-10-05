@@ -14,7 +14,7 @@ export default defineComponent({
             required: true,
         },
         value: {
-            type: [String, Number],
+            type: [String],
             default: '',
         },
     },

@@ -1,5 +1,6 @@
 export const cities = [
     {
+        "distance": 0,
         "name": "Barcelona",
         "continent": "Europe",
         "active": true,
@@ -10,9 +11,9 @@ export const cities = [
             "lat": 41.390205,
             "lng": 2.154007
         }
-    
     },
     {
+        "distance": 0,
         "name": "Paris",
         "continent": "Europe",
         "active": true,
@@ -25,6 +26,7 @@ export const cities = [
         }
     },
     {
+        "distance": 0,
         "name": "Serrekunda",
         "continent": "Africa",
         "active": true,
@@ -37,6 +39,7 @@ export const cities = [
         }
     },
     {
+        "distance": 0,
         "name": "Kandahar",
         "continent": "Asia",
         "active": true,
@@ -49,6 +52,7 @@ export const cities = [
         }
     },
     {
+        "distance": 0,
         "name": "La Paz",
         "continent": "South America",
         "active": true,
@@ -61,6 +65,7 @@ export const cities = [
         }
     },
     {
+        "distance": 0,
         "name": "Lagos",
         "continent": "Africa",
         "active": true,
@@ -73,6 +78,7 @@ export const cities = [
         }
     },
     {
+        "distance": 0,
         "name": "San José",
         "continent": "South America",
         "active": true,
@@ -86,6 +92,7 @@ export const cities = [
         }
     },
     {
+        "distance": 0,
         "name": "Montreal",
         "continent": "North America",
         "active": true,
@@ -99,6 +106,7 @@ export const cities = [
         }
     },
     {
+        "distance": 0,
         "name": "Doha",
         "continent": "Asia",
         "active": true,
@@ -112,6 +120,7 @@ export const cities = [
         }
     },
     {
+        "distance": 0,
         "name": "Almería",
         "continent": "Europe",
         "active": false,
@@ -125,6 +134,7 @@ export const cities = [
         }
     },
     {
+        "distance": 0,
         "name": "Hanoi",
         "continent": "Asia",
         "active": true,
@@ -138,6 +148,7 @@ export const cities = [
         }
     },
     {
+        "distance": 0,
         "name": "Tunis",
         "continent": "Africa",
         "active": true,
@@ -151,6 +162,7 @@ export const cities = [
         }
     },
     {
+        "distance": 0,
         "name": "Madrid",
         "continent": "Europe",
         "active": true,
@@ -163,6 +175,7 @@ export const cities = [
         }
     },
     {
+        "distance": 0,
         "name": "Mangochi",
         "continent": "Africa",
         "active": true,
@@ -175,6 +188,7 @@ export const cities = [
         }
     },
     {
+        "distance": 0,
         "name": "Blantyre",
         "continent": "Africa",
         "active": true,
@@ -187,6 +201,7 @@ export const cities = [
         }
     },
     {
+        "distance": 0,
         "name": "Nkhotakota",
         "continent": "Africa",
         "active": true,
@@ -199,6 +214,7 @@ export const cities = [
         }
     },
     {
+        "distance": 0,
         "name": "Tallinn",
         "continent": "Europe",
         "active": true,
@@ -211,6 +227,7 @@ export const cities = [
         }
     },
     {
+        "distance": 0,
         "name": "Lisbon",
         "continent": "Europe",
         "active": true,
