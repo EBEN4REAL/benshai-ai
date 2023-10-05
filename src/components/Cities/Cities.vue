@@ -3,7 +3,7 @@
         <div class="cities-container" v-if="filteredCities.length > 0">
             <div v-for="(city, i) in filteredCities" :key="`${city.name}-${i}`" class="city"
                 :style="{ backgroundImage: `url(${city.image})` }">
-                <router-link :to="`/${city.name}`">
+                <router-link :to="`/city/${city.name}?lat=${city.coords.lat}&lng=${city.coords.lng}`">
                     <p style="color: white">
                         {{ city.distance }}
                     </p>
@@ -28,7 +28,7 @@ import { ICity, IWeatherResponse } from "../../types"
 import { useCityStore } from "../../store/CityStore.ts"
 import { storeToRefs } from 'pinia'
 import { truncateString } from "../../utils/truncateString"
-import { fetchData } from "../../Services/cityService.ts"
+import { fetchCityWeatherData } from "../../Services/cityService.ts"
 
 export default defineComponent({
     props: {
@@ -45,7 +45,7 @@ export default defineComponent({
             const cities = [...filteredCities.value]
 
             try {
-                const data = await fetchData(coords, temperature.value);
+                const data = await fetchCityWeatherData(coords, temperature.value);
 
                 cities.forEach(city => {
                     if (city.coords.lat === coords.lat && coords.lng === city.coords.lng) {
