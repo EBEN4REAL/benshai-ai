@@ -55,6 +55,7 @@ export default defineComponent({
                 })
 
                 updateCities(cities)
+                
             } catch (error) {
                 console.error(error);
             }

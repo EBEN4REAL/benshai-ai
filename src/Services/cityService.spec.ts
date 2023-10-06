@@ -32,14 +32,14 @@ describe('Weather API functions', () => {
 
         expect(global.fetch).toHaveBeenCalledTimes(1);
         expect(global.fetch).toHaveBeenCalledWith(
-            ` ${BASE_URL}/data/ 2.5/weather?lat=${coords.latitude}&lon=${coords.longitude}&appid=${API_KEY}&units=${units}`
+            ` ${BASE_URL}/data/2.5/weather?lat=${coords.latitude}&lon=${coords.longitude}&appid=${API_KEY}&units=${units}`
         );
         expect(weatherData).toEqual(WeatherMockData);
     });
 
     it('fetchCityWeatherForecast returns weather forecast data', async () => {
         const coords: Coords = { latitude: 1.23, longitude: 4.56 };
-        
+
         (global.fetch as jest.Mock).mockResolvedValue({
             json: async () => Promise.resolve({ /* Your mock response data here */ }),
         });
