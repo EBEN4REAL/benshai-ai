@@ -18,13 +18,12 @@
         <div v-else>
             No cities found
         </div>
-
     </div>
 </template>
   
 <script lang="ts">
-import { defineComponent, ref, computed, onMounted, watch } from 'vue';
-import { ICity, IWeatherResponse } from "../../types"
+import { defineComponent, onMounted, watch } from 'vue';
+import { ICity } from "../../types"
 import { useCityStore } from "../../store/CityStore.ts"
 import { storeToRefs } from 'pinia'
 import { truncateString } from "../../utils/truncateString"
@@ -41,7 +40,9 @@ export default defineComponent({
         const { updateCities } = cityStore
         const { filteredCities, temperature } = storeToRefs(cityStore);
 
-        async function fetchCityWeatherInfo(coords: { latitude: number, longitude: number }) {
+        async function fetchCityWeatherInfo(coords: {
+            [x: string]: number; latitude: number, longitude: number
+        }) {
             const cities = [...filteredCities.value]
 
             try {
@@ -55,11 +56,11 @@ export default defineComponent({
 
                 updateCities(cities)
             } catch (error) {
-                console.error(error.message);
+                console.error(error);
             }
         }
 
-        watch(temperature, (value) => {
+        watch(temperature, () => {
             updateCitiesTemperature()
         })
 

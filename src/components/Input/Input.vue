@@ -1,5 +1,5 @@
 <template>
-  <input v-model="inputValue" :placeholder="placeholder" @input="onInput" />
+  <input v-model="inputValue" :placeholder="placeholder" @input="onInput" :type="type" id="el-input" />
 </template>
 
 <script lang="ts">
@@ -9,6 +9,7 @@ export default defineComponent({
   props: {
     value: String,
     placeholder: String,
+    type: String
   },
   emits: ['update:modelValue'],
   setup(props, { emit }) {

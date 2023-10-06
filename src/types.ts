@@ -6,7 +6,7 @@ export interface ICity {
   country: string;
   description: string;
   image: string;
-
+  temp: number;
   coords: {
     lat: number;
     lng: number;

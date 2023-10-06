@@ -4,7 +4,7 @@
       <SelectInput :options="continents" v-model="selectedContinent" />
     </div>
     <div>
-      <Input v-model="search" placeholder="search city..." />
+      <Input v-model="search" placeholder="search city..." type="text" />
     </div>
     <div>
       <p @click="sortCity('name')">Name</p>
